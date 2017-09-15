@@ -1,0 +1,58 @@
+﻿<Controls:MetroWindow x:Class="TickerWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        xmlns:local="clr-namespace:TickerWPF.Converter"
+        Title="Ticker App" 
+        Height="220" 
+        Width="400">
+    <Window.Resources>
+        <local:PercentChangeColorConverter x:Key="PercentChangeColorConverter"/>
+    </Window.Resources>
+    <Grid>
+        <!--<StackPanel DataContext="{Binding Equity}">
+            <TextBlock Text="Name" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="Exchange" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=Exchange, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="Price" FontWeight="Bold"/>
+            <TextBlock Text="Open" FontWeight="Bold" Margin="10,0,0,0"/>
+            <TextBlock Text="{Binding Path=Price.Open, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+            <TextBlock Text="Last" FontWeight="Bold" Margin="10,0,0,0"/>
+            <TextBlock Text="{Binding Path=Price.Last, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+            <TextBlock Text="Percent Change" FontWeight="Bold" Margin="10,0,0,0"/>
+            <TextBlock Text="{Binding Path=Price.PercentChange, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+        </StackPanel>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding Equity}" 
+                  IsReadOnly="True" 
+                  HorizontalAlignment="Stretch" 
+                  VerticalScrollBarVisibility="Auto"
+                  Grid.Row="0"
+                  Grid.RowSpan="3"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="4"
+                  AutoGenerateColumns="False"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>
+                <DataGridTextColumn Header="Exchange" Binding="{Binding Path=Exchange}" Width="*"/>
+                <DataGridTextColumn Header="Last" Binding="{Binding Path=Price.Last}" Width="*"/>
+                <DataGridTextColumn Header="Open" Binding="{Binding Path=Price.Open}" Width="*"/>
+                <DataGridTextColumn Header="Change" Binding="{Binding Path=Price.PercentChange}" Width="*" Foreground="{Binding Path=PercentChange, Converter={StaticResource PercentChangeColorConverter}}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+    </Grid>
+</Controls:MetroWindow>
